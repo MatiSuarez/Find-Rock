@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./SearchBar.css";
 import logo from "../logo.svg";
 
-class SearchBar extends React.Component {
+class SearchBar extends Component {
   state = {
     busqueda: "",
   };
@@ -37,9 +37,9 @@ class SearchBar extends React.Component {
                   name="busqueda"
                   type="text"
                   id="buscar"
-                  value={this.state.busqueda}
+                  value={this.props.busqueda}
                   placeholder="Busca una banda"
-                  onChange={this.handleChange}
+                  onChange={this.props.onChange}
                 />
               </div>
             </form>
