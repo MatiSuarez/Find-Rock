@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import PageSearchResult from "./PageSearchResult";
 import PageHome from "./PageHome";
 import PageArtist from "./PageArtist";
-import Footer from "./Components/Footer";
+import Layout from "./Components/Layout";
 
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
@@ -12,13 +12,13 @@ class App extends Component {
   render() {
     return (
       <BrowserRouter>
-        <Footer>
+        <Layout>
           <Switch>
             <Route exact path="/search" component={PageSearchResult} />
             <Route exact path="/artist" component={PageArtist} />
             <Route exact path="/" component={PageHome} />
           </Switch>
-        </Footer>
+        </Layout>
       </BrowserRouter>
     );
   }
