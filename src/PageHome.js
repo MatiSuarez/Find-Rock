@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./PageHome.css";
-import logo from "../logo.svg";
+import logo from "./logo.svg";
 
 class PageHome extends Component {
   render() {
@@ -9,11 +9,7 @@ class PageHome extends Component {
         <div className="row centrado">
           <div classname="col-md-6 centrar">
             <img src={logo} alt="" id="logo" />
-            <form
-              className="form-inline"
-              name="Form"
-              onSubmit={this.handleSubmit}
-            >
+            <form className="form" name="Form" onSubmit={this.handleSubmit}>
               <div className="busqueda">
                 <input
                   name="busqueda"
