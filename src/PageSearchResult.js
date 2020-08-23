@@ -3,10 +3,10 @@ import SearchBar from "./Components/SearchBar";
 import SearchResult from "./Components/SearchResult";
 
 class PageSearchResult extends Component {
-  state = {
-    busqueda: "",
-  };
+  state = {};
+
   changeHandle = (e) => {
+    console.log(e, "soy el handle desde page");
     this.setState({
       [e.target.name]: e.target.value,
     });
