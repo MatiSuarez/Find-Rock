@@ -3,6 +3,30 @@ import "./PageHome.css";
 import logo from "./logo.svg";
 
 class PageHome extends Component {
+  handleSubmit = (e) => {
+    e.preventDefault();
+    this.props.history.push("/search?" + this.state.search);
+  };
+
+  handleClick = (e) => {
+    console.log("me pincharon!");
+    e.preventDefault();
+    this.setState({
+      modal: true,
+    });
+  };
+
+  handleChange = (e) => {
+    this.setState({
+      search: e.target.value,
+    });
+  };
+
+  state = {
+    search: "",
+    modal: false,
+  };
+
   render() {
     return (
       <div className="container">
@@ -16,16 +40,19 @@ class PageHome extends Component {
             >
               <div className="busqueda">
                 <input
-                  name="busqueda"
+                  name="search"
                   type="text"
                   id="buscar"
-                  value={this.props.busqueda}
+                  value={this.props.search}
                   placeholder="Busca una banda"
-                  onChange={this.props.onChange}
+                  onChange={this.handleChange}
                 />
               </div>
               <div className="actions">
-                <button className="btng"> Search Similar Artist </button>
+                <button className="btng" type="submit">
+                  {" "}
+                  Search Similar Artist{" "}
+                </button>
               </div>
             </form>
           </div>

@@ -2,48 +2,108 @@ import React, { Component } from "react";
 import SearchBar from "./Components/SearchBar";
 import "./PageArtist.css";
 import SimilarArtist from "./Components/SimilarArtist";
+import Loading from "./Components/Loading";
+import Error from "./Components/Error";
 
 class PageArtist extends Component {
   state = {
-    busqueda: "",
+    data: {
+      artist: {
+        image: [
+          { "#text": "" },
+          { "#text": "" },
+          { "#text": "" },
+          { "#text": "" },
+          { "#text": "" },
+        ],
+        bio: {
+          summary: "",
+        },
+        similar: {
+          artist: [
+            {
+              name: "",
+              url: "",
+              image: [
+                { "#text": "" },
+                { "#text": "" },
+                { "#text": "" },
+                { "#text": "" },
+                { "#text": "" },
+              ],
+            },
+          ],
+        },
+      },
+    },
   };
-  changeHandle = (e) => {
+
+  componentDidUpdate(prevProps) {
+    if (this.props.location !== prevProps.location) {
+      this.fetchData();
+    }
+  }
+
+  handleChange = (e) => {
+    console.log(e, "soy el handle desde page");
     this.setState({
       [e.target.name]: e.target.value,
     });
   };
+
+  componentDidMount() {
+    this.fetchData();
+  }
+
+  fetchData = async () => {
+    let artist = this.props.history.location.search.substr(1);
+    let url =
+      "http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=" +
+      artist +
+      "&api_key=357bc03a9067280c3fb6659f9cb3cf21&format=json";
+    this.setState({
+      loading: true,
+    });
+    const response = await fetch(url);
+    const data = await response.json();
+    console.log(data, "lo que trae la api");
+    if (data.error) {
+      this.setState({
+        loading: false,
+        error: true,
+        errorMEnsaje: data.message,
+      });
+    } else {
+      this.setState({
+        error: false,
+        loading: false,
+        data: data,
+      });
+    }
+  };
+
   render() {
     return (
       <React.Fragment>
-        <SearchBar
-          onChange={this.changeHandle}
-          busqueda={this.state.busqueda}
-        />
+        <SearchBar onChange={this.handleChange} search={this.state.search} />
+        {this.state.loading && <Loading />}
+        {this.state.error && <Error errorMensaje={this.state.errorMensaje} />}
         <div className="container">
           <div className="row centrar">
             <div className="col-md-3" />
-            <div clasName="col-md-6">
+            <div className="col-md-6">
               <img
-                src="https://loff.it/wp-content/uploads/2014/09/loffit_adios-gustavo-cerati_05.jpg"
+                src={this.state.data.artist.image[2]["#text"]}
                 alt=""
-                className="pic-artist top50 margenes50"
+                className="pic-artist margenes50"
               />
 
-              <h2> Gustavo Cerati</h2>
-              <p>
-                Gustavo Adrián Cerati (Buenos Aires, 11 de agosto de
-                1959-ibidem, 4 de septiembre de 2014)3​4​5​ fue un músico,
-                cantautor, compositor y productor discográfico argentino. Obtuvo
-                reconocimiento internacional por haber sido el cantante,
-                guitarrista y compositor principal de la banda de rock Soda
-                Stereo. Es considerado uno de los músicos más importantes,
-                populares e influyentes del rock latinoamericano.
-              </p>
+              <h2>{this.state.data.artist.name}</h2>
+              <p>{this.state.data.artist.bio.summary}</p>
             </div>
           </div>
-          <div className="row centrar">
-            <SimilarArtist />
-          </div>
+
+          <SimilarArtist data={this.state.data.artist.similar.artist} />
         </div>
       </React.Fragment>
     );

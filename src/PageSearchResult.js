@@ -3,22 +3,31 @@ import SearchBar from "./Components/SearchBar";
 import SearchResult from "./Components/SearchResult";
 
 class PageSearchResult extends Component {
-  state = {};
+  state = {
+    search: "",
+  };
+
+  componentDidMount() {
+    let search = this.props.history.location.search
+      .substr(1)
+      .replace("%20", " ");
+
+    this.setState({
+      search: search,
+    });
+  }
 
   changeHandle = (e) => {
-    console.log(e, "soy el handle desde page");
     this.setState({
-      [e.target.name]: e.target.value,
+      search: e.target.value,
     });
   };
   render() {
     return (
       <React.Fragment>
-        <SearchBar
-          onChange={this.changeHandle}
-          busqueda={this.state.busqueda}
-        />
-        <SearchResult busqueda={this.state.busqueda} />
+        <SearchBar onChange={this.changeHandle} search={this.state.search} />
+
+        <SearchResult search={this.state.search} />
       </React.Fragment>
     );
   }

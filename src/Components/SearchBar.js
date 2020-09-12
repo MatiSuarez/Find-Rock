@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 class SearchBar extends Component {
   state = {
-    busqueda: "",
+    search: "",
   };
   handleChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
@@ -40,7 +40,7 @@ class SearchBar extends Component {
                   name="busqueda"
                   type="text"
                   id="buscar"
-                  value={this.props.busqueda}
+                  value={this.props.search}
                   placeholder="Busca una banda"
                   onChange={this.props.onChange}
                 />

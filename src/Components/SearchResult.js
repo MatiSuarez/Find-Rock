@@ -14,11 +14,20 @@ class SearchResult extends Component {
     },
   };
 
-  componentDidMount() {
+  componentWillReceiveProps(e) {
+    let termino = e.search;
+    this.fetchData(
+      "http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=" +
+        termino +
+        "&api_key=357bc03a9067280c3fb6659f9cb3cf21&format=json"
+    );
+  }
+
+  /* componentDidMount() {
     this.fetchData(
       "http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=thebeatles&api_key=357bc03a9067280c3fb6659f9cb3cf21&format=json"
     );
-  }
+  } */
 
   fetchData = async (url) => {
     this.setState({
@@ -35,6 +44,7 @@ class SearchResult extends Component {
       });
     } else {
       this.setState({
+        error: false,
         loading: false,
         data: data,
       });
@@ -51,14 +61,14 @@ class SearchResult extends Component {
             {this.state.data.similarartists.artist.map((artista, i) => {
               return (
                 <ArtistCard
-                  img={artista.image[2]["#text"]}
+                  img={artista.image[3]["#text"]}
                   titulos={artista.name}
                   key={i}
                 />
               );
             })}
           </div>
-          <h1> {this.state.busqueda}</h1>
+          <h1> {this.state.search}</h1>
         </div>
       </React.Fragment>
     );
