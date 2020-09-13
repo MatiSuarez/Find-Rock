@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./PageHome.css";
 import logo from "./logo.svg";
+import ReactDOM from "react-dom";
 
 class PageHome extends Component {
   handleSubmit = (e) => {
@@ -53,6 +54,7 @@ class PageHome extends Component {
             </form>
           </div>
         </div>
+        {ReactDOM.createPortal(<h1> </h1>, document.getElementById("teleport"))}
       </div>
     );
   }
