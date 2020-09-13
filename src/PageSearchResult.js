@@ -4,30 +4,33 @@ import SearchResult from "./Components/SearchResult";
 
 class PageSearchResult extends Component {
   state = {
-    search: "",
+    busqueda: "",
   };
-
   componentDidMount() {
     let search = this.props.history.location.search
       .substr(1)
       .replace("%20", " ");
 
     this.setState({
-      search: search,
+      busqueda: search,
     });
   }
+  componentWillMount() {}
+  componentWillUnmount() {}
 
-  changeHandle = (e) => {
+  handleChange = (e) => {
     this.setState({
-      search: e.target.value,
+      busqueda: e.target.value,
     });
   };
   render() {
     return (
       <React.Fragment>
-        <SearchBar onChange={this.changeHandle} search={this.state.search} />
-
-        <SearchResult search={this.state.search} />
+        <SearchBar
+          onChange={this.handleChange}
+          busqueda={this.state.busqueda}
+        />
+        <SearchResult busqueda={this.state.busqueda} />
       </React.Fragment>
     );
   }

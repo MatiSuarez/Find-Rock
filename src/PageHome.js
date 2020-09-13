@@ -5,53 +5,49 @@ import logo from "./logo.svg";
 class PageHome extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.history.push("/search?" + this.state.search);
+    this.props.history.push("/busqueda?" + this.state.busqueda);
   };
 
   handleClick = (e) => {
-    console.log("me pincharon!");
+    console.log("me pincharon");
     e.preventDefault();
     this.setState({
       modal: true,
     });
   };
-
   handleChange = (e) => {
     this.setState({
-      search: e.target.value,
+      busqueda: e.target.value,
     });
   };
-
   state = {
-    search: "",
+    busqueda: "",
     modal: false,
   };
-
   render() {
     return (
       <div className="container">
         <div className="row centrado">
-          <div classname="col-md-6 centrar">
+          <div className="col-md-6 centrar">
             <img src={logo} alt="" id="logo" />
             <form
               className="form-inline"
-              name="Form"
               onSubmit={this.handleSubmit}
+              name="FOrm"
             >
               <div className="busqueda">
                 <input
-                  name="search"
+                  name="busqueda"
                   type="text"
                   id="buscar"
-                  value={this.props.search}
+                  value={this.state.busqueda}
                   placeholder="Busca una banda"
                   onChange={this.handleChange}
                 />
               </div>
               <div className="actions">
                 <button className="btng" type="submit">
-                  {" "}
-                  Search Similar Artist{" "}
+                  Search Similar Artist
                 </button>
               </div>
             </form>

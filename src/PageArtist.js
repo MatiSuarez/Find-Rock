@@ -56,11 +56,11 @@ class PageArtist extends Component {
   }
 
   fetchData = async () => {
-    let artist = this.props.history.location.search.substr(1);
+    let artista = this.props.history.location.search.substr(1);
     let url =
       "http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=" +
-      artist +
-      "&api_key=357bc03a9067280c3fb6659f9cb3cf21&format=json";
+      artista +
+      "&api_key=6c028a05bb3337cbf567aa148b8839cf&format=json";
     this.setState({
       loading: true,
     });
@@ -85,9 +85,12 @@ class PageArtist extends Component {
   render() {
     return (
       <React.Fragment>
-        <SearchBar onChange={this.handleChange} search={this.state.search} />
+        <SearchBar
+          onChange={this.handleChange}
+          busqueda={this.state.busqueda}
+        />
         {this.state.loading && <Loading />}
-        {this.state.error && <Error errorMensaje={this.state.errorMensaje} />}
+        {this.state.error && <Error errorMEnsaje={this.state.errorMEnsaje} />}
         <div className="container">
           <div className="row centrar">
             <div className="col-md-3" />

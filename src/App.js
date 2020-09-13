@@ -14,8 +14,8 @@ class App extends Component {
       <BrowserRouter>
         <Layout>
           <Switch>
-            <Route exact path="/search" component={PageSearchResult} />
-            <Route exact path="/artist" component={PageArtist} />
+            <Route exact path="/busqueda" component={PageSearchResult} />
+            <Route exact path="/artista" component={PageArtist} />
             <Route exact path="/" component={PageHome} />
           </Switch>
         </Layout>

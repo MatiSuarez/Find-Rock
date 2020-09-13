@@ -15,19 +15,18 @@ class SearchResult extends Component {
   };
 
   componentWillReceiveProps(e) {
-    let termino = e.search;
+    let termino = e.busqueda;
     this.fetchData(
       "http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=" +
         termino +
-        "&api_key=357bc03a9067280c3fb6659f9cb3cf21&format=json"
+        "&api_key=6c028a05bb3337cbf567aa148b8839cf&format=json"
     );
   }
-
-  /* componentDidMount() {
-    this.fetchData(
-      "http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=thebeatles&api_key=357bc03a9067280c3fb6659f9cb3cf21&format=json"
-    );
-  } */
+  // componentDidMount() {
+  //   this.fetchData(
+  //     "http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=Korn&api_key=6c028a05bb3337cbf567aa148b8839cf&format=json"
+  //   );
+  // }
 
   fetchData = async (url) => {
     this.setState({
@@ -40,7 +39,7 @@ class SearchResult extends Component {
       this.setState({
         loading: false,
         error: true,
-        errorMensaje: data.message,
+        errorMEnsaje: data.message,
       });
     } else {
       this.setState({
@@ -54,21 +53,19 @@ class SearchResult extends Component {
     return (
       <React.Fragment>
         {this.state.loading && <Loading />}
-        {this.state.error && <Error errorMensaje={this.state.errorMensaje} />}
-
+        {this.state.error && <Error errorMEnsaje={this.state.errorMEnsaje} />}
         <div className="container">
           <div className="row">
-            {this.state.data.similarartists.artist.map((artista, i) => {
+            {this.state.data.similarartists.artist.map((item, i) => {
               return (
                 <ArtistCard
-                  img={artista.image[3]["#text"]}
-                  titulos={artista.name}
+                  img={item.image[3]["#text"]}
+                  titulo={item.name}
                   key={i}
                 />
               );
             })}
           </div>
-          <h1> {this.state.search}</h1>
         </div>
       </React.Fragment>
     );

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 class SearchBar extends Component {
   state = {
-    search: "",
+    busqueda: "",
   };
   handleChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
@@ -32,15 +32,15 @@ class SearchBar extends Component {
           <div className="col-md-4">
             <form
               className="form-inline"
-              name="Form"
               onSubmit={this.handleSubmit}
+              name="FOrm"
             >
               <div className="busqueda">
                 <input
                   name="busqueda"
                   type="text"
                   id="buscar"
-                  value={this.props.search}
+                  value={this.props.busqueda}
                   placeholder="Busca una banda"
                   onChange={this.props.onChange}
                 />
